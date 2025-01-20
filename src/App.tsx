@@ -1,34 +1,32 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { SolanaAdapter } from "@reown/appkit-adapter-solana/react";
-import { solana, solanaTestnet, solanaDevnet } from "@reown/appkit/networks";
-import {
-  PhantomWalletAdapter,
-  SolflareWalletAdapter,
-} from "@solana/wallet-adapter-wallets";
+import { createAppKit } from '@reown/appkit/react'
+import { SolanaAdapter } from '@reown/appkit-adapter-solana/react'
+import { solana, solanaTestnet, solanaDevnet } from '@reown/appkit/networks'
+import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets'
 
-import { createAppKit } from "@reown/appkit";
 import Home from "./pages/home";
 
-const projectId = process.env.NEXT_PUBLIC_PROJECT_ID ?? "";
+const solanaWeb3JsAdapter = new SolanaAdapter({
+  wallets: [new PhantomWalletAdapter(), new SolflareWalletAdapter()]
+})
 
-const solanaAdapter = new SolanaAdapter({
-  wallets: [new PhantomWalletAdapter(), new SolflareWalletAdapter()],
-});
+const projectId = process.env.REACT_APP_PROJECT_ID ?? "";
 
-const modal = createAppKit({
-  adapters: [solanaAdapter],
-  projectId: projectId,
+const metadata = {
+  name: 'AppKit',
+  description: 'AppKit Solana Example',
+  url: 'https://example.com', // origin must match your domain & subdomain
+  icons: ['https://avatars.githubusercontent.com/u/179229932']
+}
+
+createAppKit({
+  adapters: [solanaWeb3JsAdapter],
   networks: [solana, solanaTestnet, solanaDevnet],
+  metadata: metadata,
+  projectId,
   features: {
-    email: true,
-    analytics: true,
-    socials: ["google", "x"],
-  },
-  enableWalletConnect: false,
-  // enableInjected: false,
-  // enableWallets: false
-  // themeMode: "light",
-});
+    analytics: true // Optional - defaults to your Cloud configuration
+  }
+})
 
 export default function App() {
   return (
