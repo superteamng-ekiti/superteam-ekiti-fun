@@ -18,7 +18,7 @@ const solanaWeb3JsAdapter = new SolanaAdapter({
 });
 
 const projectId =
-  process.env.REACT_APP_PROJECT_ID ?? "015cbdcb4bc1c9ea64fd7d5aaff72890";
+  process.env.REACT_APP_PROJECT_ID ?? "";
 
 const metadata = {
   name: "AppKit",
