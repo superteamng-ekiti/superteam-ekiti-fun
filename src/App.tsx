@@ -1,37 +1,51 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import { createAppKit } from "@reown/appkit/react";
 import { SolanaAdapter } from "@reown/appkit-adapter-solana/react";
 import { solana, solanaTestnet, solanaDevnet } from "@reown/appkit/networks";
 import {
   PhantomWalletAdapter,
   SolflareWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
+import { Route, Routes } from "react-router";
 
-import { createAppKit } from "@reown/appkit";
 import Home from "./pages/home";
+import { UserDetails } from "./pages/user-details";
+import { Leaderboard } from "./pages/leaderboard";
+import { Referrals } from "./pages/referrals";
+import { MainLayout } from "./components/layout/main-layout";
 
-const projectId = process.env.NEXT_PUBLIC_PROJECT_ID ?? "";
-
-const solanaAdapter = new SolanaAdapter({
+const solanaWeb3JsAdapter = new SolanaAdapter({
   wallets: [new PhantomWalletAdapter(), new SolflareWalletAdapter()],
 });
 
-const modal = createAppKit({
-  adapters: [solanaAdapter],
-  projectId: projectId,
+const projectId =
+  process.env.REACT_APP_PROJECT_ID ?? "";
+
+const metadata = {
+  name: "AppKit",
+  description: "AppKit Solana Example",
+  url: "https://example.com", // origin must match your domain & subdomain
+  icons: ["https://avatars.githubusercontent.com/u/179229932"],
+};
+
+createAppKit({
+  adapters: [solanaWeb3JsAdapter],
   networks: [solana, solanaTestnet, solanaDevnet],
+  metadata: metadata,
+  projectId,
   features: {
-    email: true,
-    analytics: true,
-    socials: ["google", "x"],
+    analytics: true, // Optional - defaults to your Cloud configuration
   },
-  enableWalletConnect: false,
-  // enableInjected: false,
-  // enableWallets: false
-  // themeMode: "light",
 });
 
 export default function App() {
   return (
-    <Home />
-  )
+    <Routes>
+      <Route element={<MainLayout />}>
+        <Route index element={<Home />} />
+        <Route path="/:id/referral" element={<Referrals />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/:id" element={<UserDetails />} />
+      </Route>
+    </Routes>
+  );
 }
