@@ -10,7 +10,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        "w-full container mx-auto flex justify-center items-center py-6",
+        "w-full container mx-auto flex justify-center items-center py-6 px-4 md:px-0",
         isConnected && "justify-between"
       )}
     >
@@ -22,17 +22,17 @@ export function Header() {
         />
       </Link>
       {isConnected && (
-        <div className="w-full flex items-center justify-between">
+        <div className="w-full hidden md:flex items-center justify-between">
           <div />
           <HeaderNavItems />
           <div className="flex items-center gap-4">
-            <p className="text-white text-md champ-black px-8 py-4 bg-primary/40 cursor-pointer">
+            <p className="text-white text-md champ-black px-8 py-3 bg-primary/40 cursor-pointer">
               {truncateWalletAddress(walletAddress ?? "")}
             </p>
 
             <img
               src="/src/assets/images/avatar.svg"
-              className="w-auto h-[55px] cursor-pointer"
+              className="w-auto h-[48px] cursor-pointer"
             />
           </div>
         </div>
