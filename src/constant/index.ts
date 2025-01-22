@@ -1,0 +1,1 @@
+export const PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
