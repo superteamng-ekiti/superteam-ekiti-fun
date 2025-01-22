@@ -17,8 +17,7 @@ const solanaWeb3JsAdapter = new SolanaAdapter({
   wallets: [new PhantomWalletAdapter(), new SolflareWalletAdapter()],
 });
 
-const projectId =
-  process.env.REACT_APP_PROJECT_ID ?? "";
+const projectId = process.env.REACT_APP_PROJECT_ID ?? "";
 
 const metadata = {
   name: "AppKit",
