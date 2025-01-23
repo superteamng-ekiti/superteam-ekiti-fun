@@ -8,10 +8,10 @@ export const signInWithGitHub = async () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     const token = (await user.getIdTokenResult()).token;
-    console.log('GitHub Access Token:', token); // Use this token for GitHub API requests
+    // console.log('GitHub Access Token:', token); // Use this token for GitHub API requests
     return user;
   } catch (error: any) {
-    console.error('GitHub Login Error:', error.message);
+    // console.error('GitHub Login Error:', error.message);
   }
 };
 
@@ -19,8 +19,8 @@ export const signInWithGitHub = async () => {
 export const logoutGithub = async () => {
   try {
     await signOut(auth);
-    console.log('User signed out');
+    // console.log('User signed out');
   } catch (error) {
-    console.error('Logout Error:', error.message);
+    // console.error('Logout Error:', error.message);
   }
 };
