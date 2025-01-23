@@ -1,10 +1,16 @@
 import { useAppKitAccount, useAppKit } from "@reown/appkit/react";
 import { Button } from "../ui/button";
 import { truncateWalletAddress } from "@/utils/string";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { signInWithGitHub, logoutGithub } from "@/utils/auth";
+import { auth } from "@/config";
 
 export const Hero = () => {
   const { open } = useAppKit();
   const { address: walletAddress, isConnected } = useAppKitAccount();
+
+  const [user] = useAuthState(auth);
+
   return (
     <div className="container mx-auto flex flex-col items-center justify-between h-[calc(100vh-80px)]">
       <div className="flex w-full flex-col pt-16 md:pt-8">
@@ -21,7 +27,14 @@ export const Hero = () => {
               ? truncateWalletAddress(walletAddress ?? "")
               : "Connect Your Wallet"}
           </Button>
-          <Button variant="secondary">Connect your Github</Button>
+
+          {
+            user ? (
+              <Button variant="secondary" onClick={logoutGithub}>Logout, {user.displayName}</Button>
+            ) : (
+              <Button variant="secondary" onClick={signInWithGitHub}>Connect your Github</Button>
+            )
+          }
         </div>
       </div>
 
