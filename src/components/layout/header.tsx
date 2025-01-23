@@ -1,4 +1,4 @@
-import { useAppKitAccount } from "@reown/appkit/react";
+import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 import logo from "/src/assets/images/logo.svg";
 import { cn } from "@/lib/utils";
 import { truncateWalletAddress } from "@/utils/string";
@@ -6,6 +6,7 @@ import { HeaderNavItems } from "./header-nav-items";
 import { Link } from "react-router";
 
 export function Header() {
+  const { open } = useAppKit();
   const { address: walletAddress, isConnected } = useAppKitAccount();
   return (
     <header
@@ -26,7 +27,7 @@ export function Header() {
           <div />
           <HeaderNavItems />
           <div className="flex items-center gap-4">
-            <p className="text-white text-md champ-black px-8 py-3 bg-primary/40 cursor-pointer">
+            <p onClick={() => open()} className="text-white text-md champ-black px-8 py-3 bg-primary/40 cursor-pointer">
               {truncateWalletAddress(walletAddress ?? "")}
             </p>
 
