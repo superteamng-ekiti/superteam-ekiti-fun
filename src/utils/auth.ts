@@ -6,10 +6,13 @@ export const signInWithGitHub = async () => {
   const provider = new GithubAuthProvider();
   try {
     const result = await signInWithPopup(auth, provider);
+    const credential = GithubAuthProvider.credentialFromResult(result);
+    const githubAccessToken = credential?.accessToken;
     const user = result.user;
-    const token = (await user.getIdTokenResult()).token;
-    // console.log('GitHub Access Token:', token); // Use this token for GitHub API requests
-    return user;
+    return {
+      user,
+      token: githubAccessToken,
+    };
   } catch (error: any) {
     // console.error('GitHub Login Error:', error.message);
   }
