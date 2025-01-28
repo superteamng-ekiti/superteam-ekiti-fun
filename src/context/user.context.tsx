@@ -6,7 +6,7 @@ interface User {
   createdAt: string | null;
   points: number | null;
   referral_code: string | null;
-  referrals: string[] | null;
+  referrals: { wallet_address: string }[] | null;
   updatedAt: string | null;
   wallet_address: string | null;
   current_scout: {
@@ -85,6 +85,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 };
 
 // Custom hook to use the UserContext
+// eslint-disable-next-line react-refresh/only-export-components
 export const useUser = () => {
   const context = useContext(UserContext);
   if (!context) {
