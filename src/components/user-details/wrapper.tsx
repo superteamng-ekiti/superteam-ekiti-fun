@@ -20,33 +20,14 @@ export const UserDetailsWrapper = () => {
   const { data, isLoading } = useFetchRepositories();
   const { mutate: checkRepository, status } = useCheckRepository();
 
-  // const [repositoryUsed, setRepositoryUsed] = useState<any[]>([]);
-
-  // console.log(data, "data");
-
-  console.log(user, "user");
-
-  const filterRepositories = useMemo(() => {
-    if (!data) return [];
-    return data.filter(
-      (repository: any) =>
-        repository?.language === "JavaScript" || repository?.language === "Rust" || repository?.language === "TypeScript"
-    );
-  }, [data]);
-
-  // console.log(filterRepositories, "filterRepositories");
-
   const handleCheckRepository = async () => {
     if (!data) return;
 
-    console.log(data, "data");
-
     try {
-      for (const repository of filterRepositories) {
-
+      for (const repository of data) {
         await checkRepository(
           {
-            
+            type: repository?.language?.toLowerCase() === "rust" ? "rust" : "js",
             github_url: repository.html_url,
             id: id ?? "",
           },

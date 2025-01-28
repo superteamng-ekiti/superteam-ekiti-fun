@@ -12,7 +12,7 @@ export const Hero = () => {
   const { open } = useAppKit();
   const navigate = useNavigate();
   const { address: walletAddress, isConnected } = useAppKitAccount();
-  const { updateAccessToken, logoutUser } = useUser();
+  const { updateAccessToken, logoutUser, user: userDetails } = useUser();
   const { mutate: onboardUser } = useOnboardUser();
   const [searchParams] = useSearchParams();
   const referralCode = searchParams.get("ref");
@@ -43,7 +43,7 @@ export const Hero = () => {
         {
           isConnected && user ? (
             <div className="flex items-center justify-center mt-6 md:mt-12 gap-6">
-              <Button onClick={() => navigate("/")}>
+              <Button onClick={() => navigate(`/${userDetails?._id}`)}>
                 Check your rewards
               </Button>
             </div>
