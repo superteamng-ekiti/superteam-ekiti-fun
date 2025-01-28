@@ -20,6 +20,7 @@ interface UserContextType {
   user: User;
   updateUser: (userData: Partial<User>) => void;
   updateAccessToken: (token: string) => void;
+  logoutUser: () => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -59,8 +60,25 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     }));
   };
 
+  const logoutUser = async () => {
+    setUser({
+      _id: null,
+      createdAt: null,
+      points: null,
+      referral_code: null,
+      referrals: null,
+      updatedAt: null,
+      wallet_address: null,
+      current_scout: {
+        javascript: [],
+        rust: [],
+      },
+      accessToken: null,
+    });
+  }
+
   return (
-    <UserContext.Provider value={{ user, updateUser, updateAccessToken }}>
+    <UserContext.Provider value={{ user, updateUser, updateAccessToken, logoutUser }}>
       {children}
     </UserContext.Provider>
   );

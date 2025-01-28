@@ -12,7 +12,7 @@ export const Hero = () => {
   const { open } = useAppKit();
   const navigate = useNavigate();
   const { address: walletAddress, isConnected } = useAppKitAccount();
-  const { updateAccessToken } = useUser();
+  const { updateAccessToken, logoutUser } = useUser();
   const { mutate: onboardUser } = useOnboardUser();
   const [searchParams] = useSearchParams();
   const referralCode = searchParams.get("ref");
@@ -23,6 +23,11 @@ export const Hero = () => {
     const userDetails = await signInWithGitHub();
     await updateAccessToken(userDetails?.token ?? "");
     await onboardUser({ walletAddress: walletAddress ?? "", email: userDetails?.user?.email ?? "", referralCode: referralCode ??"" });
+  }
+
+  const handleLogout = () => {
+     logoutGithub();
+     logoutUser();
   }
 
   return (
@@ -52,7 +57,7 @@ export const Hero = () => {
     
               {
                 user ? (
-                  <Button variant="secondary" onClick={logoutGithub}>Logout, {user.displayName}</Button>
+                  <Button variant="secondary" onClick={handleLogout}>Logout, {user.displayName}</Button>
                 ) : (
                   <Button variant="secondary" disabled={!isConnected} onClick={handleSignInWithGitHub}>Connect your Github</Button>
                 )

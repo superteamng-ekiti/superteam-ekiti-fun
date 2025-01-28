@@ -6,18 +6,18 @@ export const useCheckRepository = () => {
   const { user } = useUser();
   return useMutation({
     mutationFn: async ({
-      type,
+      // type,
       github_url,
       id,
     }: {
-      type: "js" | "rust";
+      // type: "js" | "rust";
       github_url: string;
       id: string;
     }) => {
       const response = await api.post(
         "/scout",
         {
-          type,
+          // type,
           github_url,
           id,
           access_token: user?.accessToken,
