@@ -4,12 +4,31 @@ import { truncateWalletAddress } from "@/utils/string";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signInWithGitHub, logoutGithub } from "@/utils/auth";
 import { auth } from "@/config";
+import { useUser } from "@/context/user.context";
+import { useOnboardUser } from "@/hooks/use-onboard-user";
+import { useNavigate, useSearchParams } from "react-router";
 
 export const Hero = () => {
   const { open } = useAppKit();
+  const navigate = useNavigate();
   const { address: walletAddress, isConnected } = useAppKitAccount();
+  const { updateAccessToken, logoutUser, user: userDetails } = useUser();
+  const { mutate: onboardUser } = useOnboardUser();
+  const [searchParams] = useSearchParams();
+  const referralCode = searchParams.get("ref");
 
   const [user] = useAuthState(auth);
+
+  async function handleSignInWithGitHub() {
+    const userDetails = await signInWithGitHub();
+    await updateAccessToken(userDetails?.token ?? "");
+    await onboardUser({ walletAddress: walletAddress ?? "", email: userDetails?.user?.email ?? "", referralCode: referralCode ??"" });
+  }
+
+  const handleLogout = () => {
+     logoutGithub();
+     logoutUser();
+  }
 
   return (
     <div className="container mx-auto flex flex-col items-center justify-between h-[calc(100vh-80px)]">
@@ -21,21 +40,32 @@ export const Hero = () => {
           Get rewarded for building on solana blockchain 😋
         </p>
 
-        <div className="flex items-center justify-center mt-6 md:mt-12 gap-6">
-          <Button onClick={() => open()}>
-            {isConnected && walletAddress
-              ? truncateWalletAddress(walletAddress ?? "")
-              : "Connect Your Wallet"}
-          </Button>
+        {
+          isConnected && user ? (
+            <div className="flex items-center justify-center mt-6 md:mt-12 gap-6">
+              <Button onClick={() => navigate(`/${userDetails?._id}`)}>
+                Check your rewards
+              </Button>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center mt-6 md:mt-12 gap-6">
+              <Button onClick={() => open()}>
+                {isConnected && walletAddress
+                  ? truncateWalletAddress(walletAddress ?? "")
+                  : "Connect Your Wallet"}
+              </Button>
+    
+              {
+                user ? (
+                  <Button variant="secondary" onClick={handleLogout}>Logout, {user.displayName}</Button>
+                ) : (
+                  <Button variant="secondary" disabled={!isConnected} onClick={handleSignInWithGitHub}>Connect your Github</Button>
+                )
+              }
+            </div>
+          )
+        }
 
-          {
-            user ? (
-              <Button variant="secondary" onClick={logoutGithub}>Logout, {user.displayName}</Button>
-            ) : (
-              <Button variant="secondary" onClick={signInWithGitHub}>Connect your Github</Button>
-            )
-          }
-        </div>
       </div>
 
       <img

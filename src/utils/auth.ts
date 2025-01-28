@@ -1,6 +1,7 @@
 import { GithubAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { auth } from '@/config';
 
+
 // Sign in with GitHub
 export const signInWithGitHub = async () => {
   const provider = new GithubAuthProvider();
@@ -9,10 +10,10 @@ export const signInWithGitHub = async () => {
     const credential = GithubAuthProvider.credentialFromResult(result);
     const githubAccessToken = credential?.accessToken;
     const user = result.user;
-    const token = (await user.getIdTokenResult()).token;
-    console.log('Github accessToken:', githubAccessToken);
-    console.log('GitHub Access Token:', token); // Use this token for GitHub API requests
-    return user;
+    return {
+      user,
+      token: githubAccessToken,
+    };
   } catch (error: any) {
     // console.error('GitHub Login Error:', error.message);
   }
@@ -22,6 +23,7 @@ export const signInWithGitHub = async () => {
 export const logoutGithub = async () => {
   try {
     await signOut(auth);
+
     // console.log('User signed out');
   } catch (error) {
     // console.error('Logout Error:', error.message);
