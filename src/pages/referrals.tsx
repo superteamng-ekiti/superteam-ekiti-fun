@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 
 export const Referrals = () => {
   const { user } = useUser();
-  console.log(user, 'user data');
+  // console.log(user, 'user data');
   const { toast } = useToast();
 
   const refferalCode = `https://reward.dev?ref=${user?.referral_code}`;
@@ -42,7 +42,7 @@ export const Referrals = () => {
           </div>
 
           <div className="rounded-md w-fit py-[12px] px-4 flex gap-4 flex-wrap bg-background">
-            <span className="text-sm lg:text-nowrap leading-[23px] work-sans-regular text-foreground">
+            <span className="text-sm leading-[23px] work-sans-regular text-foreground">
               {refferalCode}
             </span>
             <img src={copyIcon} alt="copy" onClick={handleCopy} />

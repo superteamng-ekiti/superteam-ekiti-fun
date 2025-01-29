@@ -31,8 +31,8 @@ export const useCheckRepository = () => {
       });
       return response;
     },
-    onError: (error) => {
-      console.log(error);
+    onError: () => {
+      // console.log(error);
     },
   });
 };

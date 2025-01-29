@@ -63,14 +63,15 @@ export const UserDetailsWrapper = () => {
             onSuccess: () => {
               fetchUser();
             },
-            onError: (error) => {
-              console.log("error", error);
+            onError: () => {
+              // console.log("error", error);
             },
           }
         );
       }
-    } catch (error) {
-      console.log(error);
+    } catch (_error) {
+      
+      // console.log(error);
     }
   };
 

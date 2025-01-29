@@ -16,8 +16,8 @@ export const useFetchUser = () => {
     onSuccess: async (data) => {
       await updateUser(data);
     },
-    onError: (error) => {
-      console.log(error);
+    onError: () => {
+      // console.log(error);
     },
   });
 };
