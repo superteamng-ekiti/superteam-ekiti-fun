@@ -1,13 +1,11 @@
-import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
+import { useAppKitAccount } from "@reown/appkit/react";
 import logo from "/src/assets/images/logo.svg";
 import { cn } from "@/lib/utils";
-import { truncateWalletAddress } from "@/utils/string";
-import { HeaderNavItems } from "./header-nav-items";
 import { Link } from "react-router";
+import { HeaderActions } from "./header-actions";
 
 export function Header() {
-  const { open } = useAppKit();
-  const { address: walletAddress, isConnected } = useAppKitAccount();
+  const { isConnected } = useAppKitAccount();
   return (
     <header
       className={cn(
@@ -23,20 +21,7 @@ export function Header() {
         />
       </Link>
       {isConnected && (
-        <div className="w-full hidden md:flex items-center justify-between">
-          <div />
-          <HeaderNavItems />
-          <div className="flex items-center gap-4">
-            <p onClick={() => open()} className="text-white text-md champ-black px-8 py-3 bg-primary/40 cursor-pointer">
-              {truncateWalletAddress(walletAddress ?? "")}
-            </p>
-
-            <img
-              src="/src/assets/images/avatar.svg"
-              className="w-auto h-[48px] cursor-pointer"
-            />
-          </div>
-        </div>
+        <HeaderActions />
       )}
     </header>
   );
