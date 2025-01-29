@@ -9,6 +9,7 @@ import { Button } from "../ui/button";
 import { useNavigate } from "react-router";
 import { useUser } from "@/context/user.context";
 import { logoutGithub } from "@/utils/auth";
+import avatar from '@/assets/images/avatar.svg'
 
 export const HeaderActions = () => {
   const { disconnect } = useDisconnect();
@@ -35,7 +36,7 @@ export const HeaderActions = () => {
         <Popover>
           <PopoverTrigger>
             <img
-              src="/src/assets/images/avatar.svg"
+              src={avatar}
               className="w-auto h-[48px] cursor-pointer"
             />
           </PopoverTrigger>
