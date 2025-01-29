@@ -1,6 +1,7 @@
 import { GithubAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { auth } from '@/config';
 import { encryptToken } from './encrypt';
+import { setValue } from './storage';
 
 
 // Sign in with GitHub
@@ -8,11 +9,11 @@ export const signInWithGitHub = async () => {
   const provider = new GithubAuthProvider();
   try {
     const result = await signInWithPopup(auth, provider);
-    const credential = GithubAuthProvider.credentialFromResult(result);
-    const githubAccessToken = credential?.accessToken;
-    const encryptedToken = encryptToken(githubAccessToken ?? "");
-    localStorage.setItem("accessToken", encryptedToken);
-    const user = result.user;
+    const credential =await GithubAuthProvider.credentialFromResult(result);
+    const githubAccessToken = await credential?.accessToken;
+    const encryptedToken = await encryptToken(githubAccessToken ?? "");
+    setValue("accessToken", encryptedToken);
+    const user = await result.user;
     return {
       user,
       token: encryptedToken,

@@ -20,8 +20,6 @@ export const Referrals = () => {
     fetchReferrals();
   }, [fetchReferrals]);
 
-  // console.log(data, 'referral data');
-
   const handleCopy = () => {
     copy(refferalCode);
     toast({

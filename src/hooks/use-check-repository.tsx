@@ -1,9 +1,18 @@
 import { api } from "@/lib/api";
 import { decryptToken } from "@/utils/encrypt";
+import { getValue } from "@/utils/storage";
 import { useMutation } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 
 export const useCheckRepository = () => {
-  const accessToken = decryptToken(localStorage.getItem("accessToken") ?? "");
+  const [newAccessToken, setNewAccessToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const accessToken = getValue("accessToken");
+    if (accessToken) {
+      setNewAccessToken(decryptToken(accessToken));
+    }
+  }, []);
   return useMutation({
     mutationFn: async ({
       // type,
@@ -14,19 +23,13 @@ export const useCheckRepository = () => {
       github_url: string;
       id: string;
     }) => {
-      const response = await api.post(
-        "/scout",
-        {
-          // type,
-          github_url,
-          id,
-          access_token: accessToken,
-        }
-      );
+      const response = await api.post("/scout", {
+        // type,
+        github_url,
+        id,
+        access_token: newAccessToken,
+      });
       return response;
-    },
-    onSuccess: async (data) => {
-      console.log(data);
     },
     onError: (error) => {
       console.log(error);
