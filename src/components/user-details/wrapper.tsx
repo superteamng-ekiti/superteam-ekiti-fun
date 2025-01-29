@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useUser } from "@/context/user.context";
 import { PackagesUsed } from "./packages-used";
 import { UserPoints } from "./user-points";
@@ -7,6 +8,7 @@ import { useFetchRepositories } from "@/hooks/use-fetch-repositories";
 import { useParams } from "react-router";
 import { useCheckRepository } from "@/hooks/use-check-repository";
 import { useFetchUser } from "@/hooks/use-fetch-user";
+import { Separator } from "../ui/separator";
 
 export const UserDetailsWrapper = () => {
   const { user } = useUser();
@@ -21,6 +23,27 @@ export const UserDetailsWrapper = () => {
 
   const { data, isLoading } = useFetchRepositories();
   const { mutate: checkRepository, status } = useCheckRepository();
+  const filteredRepositories = useMemo(() => {
+    return data?.filter((repository: any) => {
+      if (repository.language?.toLowerCase() === "rust") {
+        return true;
+      }
+
+      if (repository.language?.toLowerCase() === "javascript") {
+        return true;
+      }
+
+      if (repository.language?.toLowerCase() === "typescript") {
+        return true;
+      }
+
+      if (!repository?.language) {
+        return true;
+      }
+
+      return false;
+    });
+  }, [data]);
 
   useEffect(() => {
     fetchUser();
@@ -30,10 +53,9 @@ export const UserDetailsWrapper = () => {
     if (!data) return;
 
     try {
-      for (const repository of data) {
+      for (const repository of filteredRepositories) {
         await checkRepository(
           {
-            // type: repository?.language?.toLowerCase() === "rust" ? "rust" : "js",
             github_url: repository.html_url,
             id: id ?? "",
           },
@@ -62,7 +84,11 @@ export const UserDetailsWrapper = () => {
       ) : null}
       {!isScoutEmpty ? (
         <>
-          <UserPoints isLoading={isLoading || status === "pending"} handleCheckRepository={handleCheckRepository} />
+          <UserPoints
+            isLoading={isLoading || status === "pending"}
+            handleCheckRepository={handleCheckRepository}
+          />
+          <Separator className="my-8" />
           <PackagesUsed />
         </>
       ) : null}

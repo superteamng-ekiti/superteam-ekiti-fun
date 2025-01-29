@@ -1,3 +1,4 @@
+import { Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
 
 export const UserStackSelector = ({
@@ -19,7 +20,12 @@ export const UserStackSelector = ({
             far
           </p>
 
-          <Button disabled={loadingRepositories} onClick={handleCheckRepository}>Load your rewards</Button>
+          <Button disabled={loadingRepositories} onClick={handleCheckRepository}>
+            Load your rewards
+            {loadingRepositories && (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            )}
+          </Button>
         </div>
       </div>
     </div>
