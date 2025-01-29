@@ -12,7 +12,6 @@ export const useFetchReferrals = () => {
       return response;
     },
     onSuccess: async (data) => {
-      // console.log('response')
       updateUser({
         ...user,
         referrals: data?.data?.response

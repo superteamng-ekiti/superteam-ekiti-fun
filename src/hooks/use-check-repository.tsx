@@ -14,19 +14,13 @@ export const useCheckRepository = () => {
       github_url: string;
       id: string;
     }) => {
-      const response = await api.post(
-        "/scout",
-        {
-          // type,
-          github_url,
-          id,
-          access_token: accessToken,
-        }
-      );
+      const response = await api.post("/scout", {
+        // type,
+        github_url,
+        id,
+        access_token: accessToken,
+      });
       return response;
-    },
-    onSuccess: async (data) => {
-      console.log(data);
     },
     onError: (error) => {
       console.log(error);

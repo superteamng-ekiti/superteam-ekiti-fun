@@ -8,11 +8,11 @@ export const signInWithGitHub = async () => {
   const provider = new GithubAuthProvider();
   try {
     const result = await signInWithPopup(auth, provider);
-    const credential = GithubAuthProvider.credentialFromResult(result);
-    const githubAccessToken = credential?.accessToken;
-    const encryptedToken = encryptToken(githubAccessToken ?? "");
+    const credential =await GithubAuthProvider.credentialFromResult(result);
+    const githubAccessToken = await credential?.accessToken;
+    const encryptedToken = await encryptToken(githubAccessToken ?? "");
     localStorage.setItem("accessToken", encryptedToken);
-    const user = result.user;
+    const user = await result.user;
     return {
       user,
       token: encryptedToken,
