@@ -28,7 +28,7 @@ export default function App() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route index element={<Home />} />
-        <Route path="/:id/referral" element={<Referrals />} />
+        <Route path="/referral" element={<Referrals />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/:id" element={<UserDetails />} />
       </Route>
