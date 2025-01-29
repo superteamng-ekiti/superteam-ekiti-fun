@@ -1,4 +1,3 @@
-import React from 'react'
 import { truncateWalletAddress } from '@/utils/string'
 
 type ReferralCardProps = {
