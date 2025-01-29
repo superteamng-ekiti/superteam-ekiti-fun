@@ -27,8 +27,8 @@ export const useOnboardUser = () => {
       await updateUser(data?.data?.response);
       navigate(`/${data?.data?.response?._id}`);
     },
-    onError: (error) => {
-      console.log(error);
+    onError: () => {
+      // console.log(error);
     },
   });
 };

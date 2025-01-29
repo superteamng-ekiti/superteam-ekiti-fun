@@ -7,7 +7,7 @@ export const useFetchReferrals = () => {
   return useMutation({
     mutationFn: async () => {
       const response = await api.post('/fetch-referrals', {
-        id: user?.referral_code
+        id: user?._id
       });
       return response;
     },

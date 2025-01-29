@@ -1,13 +1,31 @@
-import { ENCRYPT_SECRET_KEY } from '@/constant';
-import CryptoJS from 'crypto-js';
+import { INIT_VECTOR, SECRET_INIT } from '@/constant';
+import crypto from "browser-crypto";
 
-export const encryptToken = (token: string) => {
-  const encryptedToken = CryptoJS.AES.encrypt(token, ENCRYPT_SECRET_KEY).toString();
-  return encryptedToken;
+
+const secret = SECRET_INIT;
+const initVector = INIT_VECTOR;
+
+export const encryptToken = (mnemonic: string) => {
+  const cipher = crypto.createCipheriv("aes256", secret, initVector);
+  const mnemonic_e =
+    cipher.update(mnemonic, "utf8", "hex") + cipher.final("hex");
+
+  return mnemonic_e;
 };
 
-export const decryptToken = (encryptedToken: string) => {
-  const decryptedToken = CryptoJS.AES.decrypt(encryptedToken, ENCRYPT_SECRET_KEY).toString(CryptoJS.enc.Utf8);
-  return decryptedToken;
+const firstDecryptToken = (encrypted: string) => {
+  let decipher = crypto.createDecipheriv("aes256", secret, initVector);
+  let word =
+    decipher.update(encrypted.toString(), "hex", "utf8") +
+    decipher.final("utf8");
+
+  return word;
 };
 
+export const decryptToken = (encrypted: string) => {
+  let redecrypt = firstDecryptToken(encrypted);
+
+  redecrypt = firstDecryptToken(redecrypt);
+
+  return redecrypt;
+}
