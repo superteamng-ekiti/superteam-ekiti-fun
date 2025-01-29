@@ -11,9 +11,13 @@ export const PackagesUsed = () => {
 
   return (
     <div className='w-full grid grid-cols-1 px-4 md:px-0 md:grid-cols-2 gap-4 mt-8'>
-        {packages.map((repository) => (
+        {packages.length > 0 ? packages.map((repository) => (
             <Package key={repository.id} repository={repository} />
-        ))}
+        )) : (
+            <div className="flex flex-col items-center justify-center h-full">
+                <p className="text-white text-xl work-sans-regular">No packages used</p>
+            </div>
+        )}
     </div>
   )
 }
