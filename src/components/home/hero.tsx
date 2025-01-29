@@ -9,6 +9,8 @@ import { useOnboardUser } from "@/hooks/use-onboard-user";
 import { useNavigate, useSearchParams } from "react-router";
 import { useEffect } from "react";
 import heroGift from '@/assets/images/gift-box.svg'
+import { setValue } from "@/utils/storage";
+import { encryptToken } from "@/utils/encrypt";
 
 export const Hero = () => {
   const { open } = useAppKit();
@@ -29,6 +31,7 @@ export const Hero = () => {
 
   async function handleSignInWithGitHub() {
     const userDetails = await signInWithGitHub();
+    setValue("accessToken", encryptToken(userDetails?.token ?? ""));
     await updateAccessToken(userDetails?.token ?? "");
     await onboardUser({ walletAddress: walletAddress ?? "", email: userDetails?.user?.email ?? "", referralCode: referralCode ??"" });
   }
