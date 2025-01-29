@@ -35,7 +35,7 @@ export const Hero = () => {
   const handleLogout = () => {
      logoutGithub();
      logoutUser();
-     localStorage.clear();
+     localStorage.removeItem("accessToken");
      navigate("/");
   }
 

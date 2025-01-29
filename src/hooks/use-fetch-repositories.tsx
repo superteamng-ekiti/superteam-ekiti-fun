@@ -1,17 +1,25 @@
 import { api } from "@/lib/api";
 import { decryptToken } from "@/utils/encrypt";
 import { useQuery } from "@tanstack/react-query";
+import { getValue } from "@/utils/storage";
+import { useEffect, useState } from "react";
 
 export const useFetchRepositories = () => {
+  const [newAccessToken, setNewAccessToken] = useState<string | null>(null);
 
-  const accessToken = decryptToken(localStorage.getItem("accessToken") ?? "");
+  useEffect(() => {
+    const accessToken = getValue("accessToken");
+    if (accessToken) {
+      setNewAccessToken(decryptToken(accessToken));
+    }
+  }, []);
 
   return useQuery({
-    queryKey: ["repositories", accessToken],
+    queryKey: ["repositories", newAccessToken],
     queryFn: async () => {
       const { data } = await api.get("https://api.github.com/user/repos", {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${newAccessToken}`,
         },
         params: {
           visibility: "all",
@@ -21,6 +29,6 @@ export const useFetchRepositories = () => {
       });
       return data;
     },
-    enabled: !!accessToken,
+    enabled: !!newAccessToken,
   });
 };

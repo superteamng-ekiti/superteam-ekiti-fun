@@ -19,7 +19,7 @@ export const HeaderActions = () => {
   const handleLogout = () => {
     disconnect();
     navigate("/");
-    localStorage.clear();
+    localStorage.removeItem("accessToken");
     logoutUser();
     logoutGithub();
   };
