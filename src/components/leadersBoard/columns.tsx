@@ -1,35 +1,24 @@
 "use client";
 
+import { Leaderboard } from "@/hooks/use-leaderboard";
+import { truncateWalletAddress } from "@/utils/string";
 import { ColumnDef } from "@tanstack/react-table";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type dataType = {
-  id: string;
-  no: number;
-  address: string;
-  //   status: "pending" | "processing" | "success" | "failed";
-  email: string;
-  referrals: number;
-  points: number;
-};
 
-export const columns: ColumnDef<dataType>[] = [
+export const columns: ColumnDef<Leaderboard>[] = [
   {
-    accessorKey: "no",
+    accessorKey: "_id",
     header: "No",
+    cell: ({ row }) => {
+      return <div>{row.index + 1}</div>;
+    },
   },
   {
-    accessorKey: "address",
+    accessorKey: "wallet_address",
     header: "Address",
-  },
-  {
-    accessorKey: "email",
-    header: "Email Address",
-  },
-  {
-    accessorKey: "referrals",
-    header: "Referrals",
+    cell: ({ cell }) => {
+      return <div>{truncateWalletAddress(cell.getValue() as string, 6, 3)}</div>;
+    },
   },
   {
     accessorKey: "points",

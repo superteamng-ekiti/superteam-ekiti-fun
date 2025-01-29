@@ -1,26 +1,26 @@
-import { useUser } from "@/context/user.context";
 import { api } from "@/lib/api";
+import { decryptToken } from "@/utils/encrypt";
 import { useMutation } from "@tanstack/react-query";
 
 export const useCheckRepository = () => {
-  const { user } = useUser();
+  const accessToken = decryptToken(localStorage.getItem("accessToken") ?? "");
   return useMutation({
     mutationFn: async ({
-      type,
+      // type,
       github_url,
       id,
     }: {
-      type: "js" | "rust";
+      // type: "js" | "rust";
       github_url: string;
       id: string;
     }) => {
       const response = await api.post(
         "/scout",
         {
-          type,
+          // type,
           github_url,
           id,
-          access_token: user?.accessToken,
+          access_token: accessToken,
         }
       );
       return response;
