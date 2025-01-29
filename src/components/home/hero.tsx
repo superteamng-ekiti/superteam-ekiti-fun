@@ -7,6 +7,7 @@ import { auth } from "@/config";
 import { useUser } from "@/context/user.context";
 import { useOnboardUser } from "@/hooks/use-onboard-user";
 import { useNavigate, useSearchParams } from "react-router";
+import { useEffect } from "react";
 
 export const Hero = () => {
   const { open } = useAppKit();
@@ -18,6 +19,12 @@ export const Hero = () => {
   const referralCode = searchParams.get("ref");
 
   const [user] = useAuthState(auth);
+
+  useEffect(() => {
+    if (walletAddress && user) {
+      onboardUser({ walletAddress: walletAddress ?? "", email: user?.email ?? "", referralCode: referralCode ?? "" });
+    }
+  }, [onboardUser, referralCode, user, walletAddress])
 
   async function handleSignInWithGitHub() {
     const userDetails = await signInWithGitHub();

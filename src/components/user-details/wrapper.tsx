@@ -8,6 +8,7 @@ import { useFetchRepositories } from "@/hooks/use-fetch-repositories";
 import { useParams } from "react-router";
 import { useCheckRepository } from "@/hooks/use-check-repository";
 import { useFetchUser } from "@/hooks/use-fetch-user";
+import { Separator } from "../ui/separator";
 
 export const UserDetailsWrapper = () => {
   const { user } = useUser();
@@ -87,6 +88,7 @@ export const UserDetailsWrapper = () => {
             isLoading={isLoading || status === "pending"}
             handleCheckRepository={handleCheckRepository}
           />
+          <Separator className="my-8" />
           <PackagesUsed />
         </>
       ) : null}
