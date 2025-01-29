@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 
 export const Referrals = () => {
   const { user } = useUser();
-
+  console.log(user, 'user data');
   const { toast } = useToast();
 
   const refferalCode = `https://reward.dev?ref=${user?.referral_code}`;
