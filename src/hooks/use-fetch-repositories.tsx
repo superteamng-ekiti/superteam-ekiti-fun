@@ -10,6 +10,7 @@ export const useFetchRepositories = () => {
   useEffect(() => {
     const accessToken = getValue("accessToken");
     if (accessToken) {
+      console.log(decryptToken(accessToken), "decrypted token");
       setNewAccessToken(decryptToken(accessToken));
     }
   }, []);
