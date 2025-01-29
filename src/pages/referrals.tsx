@@ -12,7 +12,7 @@ export const Referrals = () => {
   // console.log(user, 'user data');
   const { toast } = useToast();
 
-  const refferalCode = `https://reward.dev?ref=${user?.referral_code}`;
+  const refferalCode = `https://reward-dev.fun?ref=${user?.referral_code}`;
 
   const { mutate: fetchReferrals } = useFetchReferrals();
 
