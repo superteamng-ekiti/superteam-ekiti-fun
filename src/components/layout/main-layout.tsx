@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Header } from "./header";
 import { Outlet, useLocation } from "react-router";
+import mesh from '@/assets/images/bg-mesh.png'
 
 export const MainLayout = () => {
   const { pathname } = useLocation();
@@ -13,7 +14,7 @@ export const MainLayout = () => {
         Built with ❤️ by Superteam Ekiti
       </p>
       <img
-        src="/src/assets/images/bg-mesh.png"
+        src={mesh}
         className="absolute -bottom-4 left-0 right-0 w-full h-[240px] object-cover"
       />
     </div>

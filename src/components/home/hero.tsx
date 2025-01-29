@@ -8,6 +8,7 @@ import { useUser } from "@/context/user.context";
 import { useOnboardUser } from "@/hooks/use-onboard-user";
 import { useNavigate, useSearchParams } from "react-router";
 import { useEffect } from "react";
+import heroGift from '@/assets/images/gift-box.svg'
 
 export const Hero = () => {
   const { open } = useAppKit();
@@ -78,7 +79,7 @@ export const Hero = () => {
       </div>
 
       <img
-        src="/src/assets/images/gift-box.svg"
+        src={heroGift}
         className="relative z-10 w-[350px] md:w-[464px] h-auto object-cover"
       />
     </div>
