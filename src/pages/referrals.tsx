@@ -30,17 +30,6 @@ export const Referrals = () => {
     });
   };
 
-  // const data = [
-  //   {
-  //     id: 1,
-  //     address: '0x1234567890',
-  //   },
-  //   {
-  //     id: 2,
-  //     address: '0x1234567890',
-  //   },
-  // ];
-
   return (
     <div className="w-full container mx-auto flex flex-col md:flex-row justify-center gap-10 md:gap-6 py-6 px-4 md:px-0">
       <div className="bg-card w-full pb-[56px] md:pb-0 md:w-[30%] md:pl-[50px] md:pr-[10px] pt-[56px] px-4 md:pt-[80px] flex flex-col gap-[100px] z-20">

@@ -22,7 +22,7 @@ export const HeaderNavItems = () => {
             isActive && "text-primary-foreground px-2 py-1 bg-primary"
           )
         }
-        to="/:id/referral"
+        to="/referral"
       >
         Referrals
       </NavLink>
