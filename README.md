@@ -1,11 +1,11 @@
-# Welcome to Reward.dev
+# Welcome to Reward-dev
 
-[Reward.dev](https://www.reward-dev.fun) is a platform that rewards JavaScript and Rust Developers building on Solana.
+[Reward-dev](https://www.reward-dev.fun) is a platform that rewards JavaScript and Rust Developers building on Solana.
 
 ![image](https://github.com/user-attachments/assets/cc5af157-9216-4a16-8490-73caf31eed08)
 
 ## Get started
-Visit Reward.dev here
+Visit Reward-dev [here](https://www.reward-dev.fun)
 
 1. Connect your wallet
 2. Connect your Github account
@@ -35,6 +35,6 @@ We've got you covered!, there are certain packages we are looking out for in you
   - `spl-associated-token-account`
 
 
-#### What are you waiting for? Connect your account on [Reward.dev](https://www.reward-dev.fun) and grab those epochs
+#### What are you waiting for? Connect your account on [Reward-dev](https://www.reward-dev.fun) and grab those epochs.
 
 ##### Note: Don't try to game the system, you won't get a reward from us and probably in heaven 😉. LFG🚀🔥💯
