@@ -27,7 +27,7 @@ We've got you covered!, there are certain packages we are looking out for in you
   - `@solana/wallet-adapter-react`
   - `@solana/wallet-adapter-react-ui`
 
-- Rust Devs, we aree looking out for these:
+- Rust Devs, we are looking out for these:
   - `spl-token`
   - `anch-lang`
   - `solana-program`
